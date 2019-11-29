@@ -31,6 +31,7 @@ Deploy the chart:
 ```
 RELEASE=jhub-app
 NAMESPACE=svc-jhub
+
 kubectl create ns $NAMESPACE &&\
 helm3 upgrade --install $RELEASE jupyterhub/jupyterhub \
   --namespace $NAMESPACE  \
