@@ -12,5 +12,5 @@ singleuser:
   networkTools:
     image:
       pullPolicy: always
-      name: minux/jupyterhub
-      tag: 'k8s-network-tools'
+  cloudMetadata:
+    enabled: true
