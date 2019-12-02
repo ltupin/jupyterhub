@@ -5,7 +5,7 @@ singleuser:
   cloudMetadata:
     enabled: true
 
-prePuller:
+hook-image-puller:
   securityContext:
     enabled: true
     runAsUser: 1001
