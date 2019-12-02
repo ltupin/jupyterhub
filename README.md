@@ -39,15 +39,7 @@ helm3 upgrade --install $RELEASE jupyterhub/jupyterhub \
 
 ## Local test
 ```
-RELEASE=jhub-app
-NAMESPACE=svc-jhub
-
-helm3 upgrade --install $RELEASE ./jupyterhub \
-  --namespace $NAMESPACE  \
-  --version=0.8.2 \
-  --values hub.yaml \
-  --debug
-
+# Generate charts
 RELEASE=jhub-app
 NAMESPACE=svc-jhub
 
@@ -57,6 +49,16 @@ helm3 template ./jupyterhub \
   --values hub.yaml \
   --debug \
   --dry-run
+
+# Deploy with local charts modified
+RELEASE=jhub-app
+NAMESPACE=svc-jhub
+
+helm3 upgrade --install $RELEASE ./jupyterhub \
+  --namespace $NAMESPACE  \
+  --version=0.8.2 \
+  --values hub.yaml \
+  --debug
 ```
 
 ## Manually fix the deployment
