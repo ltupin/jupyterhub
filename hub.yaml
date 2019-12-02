@@ -5,7 +5,10 @@ singleuser:
   cloudMetadata:
     enabled: true
 
-hook-image-puller:
+hookimagepuller:
   securityContext:
     enabled: true
-    runAsUser: 1001
+
+hookimageawaiter:
+  securityContext:
+    enabled: true
