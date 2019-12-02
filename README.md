@@ -17,7 +17,8 @@ minikube start \
   --extra-config=apiserver.enable-admission-plugins=PodSecurityPolicy \
   --alsologtostderr -v=1
 ```
-## Deploying the Helm Charts
+
+## First deployment using Helm Charts
 Be carefull, I am using `helm v3` and as I still have `helm v2` I rename it `helm3`... adapt it to your environment ;-).
 
 ```
@@ -34,6 +35,28 @@ helm3 upgrade --install $RELEASE jupyterhub/jupyterhub \
   --version=0.8.2 \
   --values hub.yaml \
   --debug
+```
+
+## Local test
+```
+RELEASE=jhub-app
+NAMESPACE=svc-jhub
+
+helm3 upgrade --install $RELEASE ./jupyterhub \
+  --namespace $NAMESPACE  \
+  --version=0.8.2 \
+  --values hub.yaml \
+  --debug
+
+RELEASE=jhub-app
+NAMESPACE=svc-jhub
+
+helm3 template ./jupyterhub \
+  --namespace $NAMESPACE  \
+  --version=0.8.2 \
+  --values hub.yaml \
+  --debug \
+  --dry-run
 ```
 
 ## Manually fix the deployment
