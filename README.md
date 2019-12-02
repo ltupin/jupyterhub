@@ -1,14 +1,14 @@
 # How to run it localy
 ## Deploy the minikube cluster with PSP
-Following this [link](https://github.com/kubernetes/minikube/issues/3818
-), let's activate PSP on a minikube cluster. If you want to check (you have to) the PSP, follow this [link](https://gist.githubusercontent.com/ltupin/0c9205777b2bba167e763275b38b25aa/raw/b2238e901ff22a4ae526df81817ce28bc17b641d/psp.yaml).
+
+This commands should be run into this git repo.
 
 ```
 K8SADDONS=~/.minikube/files/etc/kubernetes/addons/
-K8SPSP=https://gist.githubusercontent.com/ltupin/0c9205777b2bba167e763275b38b25aa/raw/b2238e901ff22a4ae526df81817ce28bc17b641d/psp.yaml
+K8SPSP=./psp.yaml
 
 mkdir -p $K8SADDONS
-cd $K8SADDONS && { curl -LO $K8SPSP ; cd -; }
+cp $K8SPSP $K8SADDONS
 
 minikube start \
   --kubernetes-version=v1.12.0 \
@@ -18,7 +18,7 @@ minikube start \
   --alsologtostderr -v=1
 ```
 ## Deploying the Helm Charts
-Be carefull, I am using helm version 3 and as I still have version 2 I so thats the reason why I rename it helm3, adapt it to your environment ;-).
+Be carefull, I am using `helm v3` and as I still have `helm v2` I rename it `helm3`... adapt it to your environment ;-).
 
 ```
 helm3 repo add stable https://kubernetes-charts.storage.googleapis.com/
