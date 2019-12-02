@@ -1,5 +1,7 @@
 proxy:
   secretToken: "b103148104a5a4868fde949bf20bc9396d8079834196c9b545a1096326e8da5a"
+  securityContext:
+    enabled: true
 
 singleuser:
   cloudMetadata:

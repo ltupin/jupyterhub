@@ -48,6 +48,10 @@ spec:
       {{- end }}
       containers:
         - name: chp
+          {{- if .Values.proxy.securityContext.enabled }}
+          securityContext:
+            runAsUser: 1001
+          {{- end }}
           image: {{ .Values.proxy.chp.image.name }}:{{ .Values.proxy.chp.image.tag }}
           command:
             - configurable-http-proxy
