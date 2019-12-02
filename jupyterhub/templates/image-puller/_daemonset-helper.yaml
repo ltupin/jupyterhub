@@ -54,6 +54,10 @@ spec:
       {{- end }}
       initContainers:
         - name: image-pull-singleuser
+          {{- if .Values.prePuller.securityContext.enabled }}
+          securityContext:
+            runAsUser: {{ .Values.prePuller.securityContext.runAsUser }}
+          {{- end }}
           image: {{ .Values.singleuser.image.name }}:{{ .Values.singleuser.image.tag }}
           imagePullPolicy: IfNotPresent
           command:
@@ -64,6 +68,10 @@ spec:
         {{- if $container.kubespawner_override }}
         {{- if $container.kubespawner_override.image }}
         - name: image-pull-singleuser-profilelist-{{ $k }}
+          {{- if .Values.prePuller.securityContext.enabled }}
+          securityContext:
+            runAsUser: {{ .Values.prePuller.securityContext.runAsUser }}
+          {{- end }}
           image: {{ $container.kubespawner_override.image }}
           imagePullPolicy: IfNotPresent
           command:
@@ -75,6 +83,10 @@ spec:
         {{- end }}
         {{- if not .Values.singleuser.cloudMetadata.enabled }}
         - name: image-pull-metadata-block
+          {{- if .Values.prePuller.securityContext.enabled }}
+          securityContext:
+            runAsUser: {{ .Values.prePuller.securityContext.runAsUser }}
+          {{- end }}
           image: {{ .Values.singleuser.networkTools.image.name }}:{{ .Values.singleuser.networkTools.image.tag }}
           imagePullPolicy: IfNotPresent
           command:
@@ -84,6 +96,10 @@ spec:
         {{- end }}
         {{- range $k, $v := .Values.prePuller.extraImages }}
         - name: image-pull-{{ $k }}
+          {{- if .Values.prePuller.securityContext.enabled }}
+          securityContext:
+            runAsUser: {{ .Values.prePuller.securityContext.runAsUser }}
+          {{- end }}
           image: {{ $v.name }}:{{ $v.tag }}
           imagePullPolicy: {{ $v.policy | default "IfNotPresent" }}
           command:
@@ -93,6 +109,10 @@ spec:
         {{- end }}
         {{- range $k, $container := .Values.singleuser.extraContainers }}
         - name: image-pull-singleuser-extra-container-{{ $k }}
+          {{- if .Values.prePuller.securityContext.enabled }}
+          securityContext:
+            runAsUser: {{ .Values.prePuller.securityContext.runAsUser }}
+          {{- end }}
           image: {{ $container.image }}
           imagePullPolicy: IfNotPresent
           command:
@@ -102,5 +122,9 @@ spec:
         {{- end }}
       containers:
         - name: pause
+          {{- if .Values.prePuller.securityContext.enabled }}
+          securityContext:
+            runAsUser: {{ .Values.prePuller.securityContext.runAsUser }}
+          {{- end }}
           image: {{ .Values.prePuller.pause.image.name }}:{{ .Values.prePuller.pause.image.tag }}
 {{- end }}
