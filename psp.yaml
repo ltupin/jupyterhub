@@ -16,7 +16,7 @@ spec:
   - "*"
   hostNetwork: true
   hostPorts:
-  - min: 0
+  - min: 1
     max: 65535
   hostIPC: true
   hostPID: true
@@ -38,6 +38,9 @@ metadata:
 spec:
   privileged: false
   allowPrivilegeEscalation: false
+  allowedHostPaths:
+  - pathPrefix: "/etc/ssl/certs"
+    readOnly: true
   requiredDropCapabilities:
     - ALL
   volumes:
@@ -46,6 +49,7 @@ spec:
     - 'projected'
     - 'secret'
     - 'downwardAPI'
+    - 'hostPath'
     - 'persistentVolumeClaim'
   hostNetwork: false
   hostIPC: false
@@ -55,15 +59,10 @@ spec:
   seLinux:
     rule: 'RunAsAny'
   supplementalGroups:
-    rule: 'MustRunAs'
-    ranges:
-      # Forbid adding the root group.
-      - min: 1
-        max: 65535
+    rule: 'RunAsAny'
   fsGroup:
     rule: 'MustRunAs'
     ranges:
-      # Forbid adding the root group.
       - min: 1
         max: 65535
   readOnlyRootFilesystem: false
