@@ -275,6 +275,13 @@ prePuller:
       name: gcr.io/google_containers/pause
       tag: '3.0'
 
+hookimagepuller:
+  securityContext:
+    enabled: true
+
+hookimageawaiter:
+  securityContext:
+    enabled: true
 
 ingress:
   enabled: false
